@@ -152,7 +152,7 @@
 								</div>
 								<textarea class="form-control type_msg" id="type_msg1" placeholder="Type your message..." ></textarea>
 								<div class="input-group-append">
-									<span class="input-group-text send_btn"><i class="fas fa-location-arrow"  id="submit_msg"></i></span>
+									<span class="input-group-text send_btn"><i class="fas fa-location-arrow"  onclick="hello()"></i></span>
 								</div>
 							</div>
 						</div>`;
@@ -169,8 +169,9 @@
 					var user_id = $(this).attr('value');
 					$.get(url+'/getMessage/'+user_id,function(data,status){
 						
-					})
+					});
 				});
+
 				$('#action_menu_btn').on('click',function(){
 					$('.action_menu').toggle();
 				});
