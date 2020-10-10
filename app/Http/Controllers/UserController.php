@@ -38,7 +38,7 @@ class UserController extends Controller
 	    		$data->name = $req['name'];
 	    		$data->mobile = $req['mobile'];
 	    		$data->password = $req['pass'];
-	    		$data->images = "https://randomuser.me/api/portraits/men/".$num.".jpg";
+	    		$data->images = "https://ui-avatars.com/api/?name=".$req['name'];
 	    		$data->save();
 	    		$arr = json_encode(array('status'=>'true','url'=>url('/login')));
 	    	}

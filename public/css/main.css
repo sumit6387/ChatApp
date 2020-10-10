@@ -83,6 +83,7 @@ textarea {
 
 textarea:focus, input:focus {
   border-color: transparent !important;
+  overflow: hidden;
 }
 
 input::-webkit-input-placeholder { color: #8f8fa1;}

@@ -5,11 +5,9 @@
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 		<!-- <meta http-equiv="refresh" content="3;url=http://localhost/ChatApp/public/test2" /> -->
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="{{url('css/main.css')}}">
+		<!-- 
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"> -->
 		<link rel="stylesheet" type="text/css" href="{{url('css/style.css')}}">
 	</head>
 	<body>
@@ -85,6 +83,8 @@
 								</ul>
 							</div>
 						</div>
+							<input type="hidden" id="recieve_id" data-id=""></a>
+
 						<div class="card-body msg_card_body" id="user_message">
 							<!-- sender msg -->
 							
@@ -94,21 +94,21 @@
 				</div>
 			</div>
 		</div>
-		<div id="divcj">
-			<li>hello</li>
-			<li>hello</li>
-			<li>hello</li>
-		</div>
 	</body>
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
 	<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 	<script type="text/javascript">
 		var url = "<?php echo url(''); ?>"
 	</script>
+	
 	<script>
     var pusher = new Pusher('5d7db225b75d4e70b1d8', {
       cluster: 'ap2'
     });
-
     var channel = pusher.subscribe('message');
     channel.bind('fetch-data', function(data) {
       var resp = JSON.parse(JSON.stringify(data));
@@ -117,6 +117,8 @@
       // user's data
       $('#username').html('Chat with '+n.name);
       $('#user_img').attr('src',n.images);
+      $('#recieve_id').attr('data-id',n.id)
+
       $('#no_messges').html(m.length + ' Messages');
       data = '';
       var current_user = <?php echo Session::get('id') ?>;
@@ -152,14 +154,13 @@
 								</div>
 								<textarea class="form-control type_msg" id="type_msg1" placeholder="Type your message..." ></textarea>
 								<div class="input-group-append">
-									<span class="input-group-text send_btn"><i class="fas fa-location-arrow"  onclick="hello()"></i></span>
+									<span class="input-group-text send_btn" id="send_button"><i class="fas fa-location-arrow"></i></span>
 								</div>
 							</div>
 						</div>`;
       $('#user_message').html(data);
       $('.chart').css('padding-top','8%');
 	  $('.chart').show();
-
     });
   </script>
 	<script type="text/javascript">
@@ -177,4 +178,5 @@
 				});
 	});
 	</script>
+	
 </html>
