@@ -19,13 +19,22 @@ class UserController extends Controller
     public function getMessage($id){
         $user_data = Message::where('send_by',$id)->where('user_id',Session::get('id'))->orwhere('send_by',Session::get('id'))->where('user_id',$id)->get();
         $user_info = User::where('id',$id)->get()->first();
-        $user_data->status = 1;
         $data = Message::where('user_id',Session::get('id'))->update(['status'=>1]);
-        event(new FetcgMessage($user_data,$user_info));
+        echo json_encode(array('data'=>$user_data , 'user'=>$user_info));
     }
 
     public function sendMessage(Request $request){
-    	
+        $new_msg = new Message();
+        $new_msg->user_id = $request['recieve_id'];
+        $new_msg->send_by = Session::get('id');
+        $new_msg->msg = $request['msg'];
+        $new_msg->status = 0;
+        $new_msg->msg_time = $request['time'];
+        $new_msg->save();
+        $image = User::where('id',$request['recieve_id'])->get()->first()->images;
+        $user_data = json_encode(array('user_id'=>$request['recieve_id'] , 'send_by'=>Session::get('id'),'msg'=>$request['msg'] , 'msg_time'=>$request['time'] , 'images'=>$image));
+        event(new FetcgMessage($user_data));
+
     }
     
     public function signup_sub(Request $req){

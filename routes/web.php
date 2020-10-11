@@ -55,5 +55,5 @@ Route::get('/logout',[UserController::class , 'logout']);
 Route::group(['middleware'=>['checkSession','LastSeenUserActivity']],function(){
 	Route::get('/dashboard',[UserController::class , 'index']);
 	Route::get('/getMessage/{id}',[UserController::class,'getMessage']);
-
+	Route::post('/sendmessage',[UserController::class , 'sendmessage']);
 });

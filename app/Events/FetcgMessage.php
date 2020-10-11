@@ -20,11 +20,9 @@ class FetcgMessage implements ShouldBroadcast
      * @return void
      */
     public $data;
-    public $user;
-    public function __construct($data,$user)
+    public function __construct($data)
     {
         $this->data = $data;
-        $this->user = $user;
     }
 
     /**
