@@ -116,6 +116,7 @@
          data = ''
 		// var data = document.getElementById('user_message')
 		var current_user = <?php echo Session::get('id') ?>;
+						if( n.send_by == current_user || n.user_id == current_user){
 						      	if(n.send_by != current_user){
 						      		data += `<div class="d-flex justify-content-start mb-4">
 														<div class="img_cont_msg">
@@ -137,8 +138,10 @@
 														</div>
 													</div>`;
 						      	}
+
 						      $('#user_message').append(data);
 						      $('#type_msg1').val('')
+						  }
 						      // document.getElementById("user_message").appendChild(data);
 
 
@@ -228,7 +231,7 @@
 							'recieve_id' : recieve_id,
 							'time' : times
 						},function(data , status){
-						console.log(data)
+						
 					});
 				}else{
 					alert('Enter message');
